@@ -1,3 +1,63 @@
-<h1>
-  {{title}}
-</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col -md-offset-2">
+      <!-- Create a Form width the following Inputs (and Validators)
+          1) Mail Address (should not be empty and should be an email address)
+          2) A DropDoewn wich allows the user to select fro, three different Subscriptions
+          3) A password field (should not be empty)
+          4) A Submit Button
+
+          Display a warning message if the Form is invalid AND was touched.
+          Display a warning message below each input if it's invalid.
+          Upon submitting the form, you should simply print the Value of the Form.
+      -->
+      <form #signUpForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="email">Mail</label>
+          <input
+            type="email"
+            id="email"
+            ngModel
+            name="email"
+            required
+            email
+            class="form-control"
+            #email="ngModel">
+            <!--Validation message (#email reference is necesary to check the input values) -->
+            <span class="help-block" *ngIf="!email.valid && email.touched"> Please enter a valid email! </span>
+        </div>
+
+        <div class="form-group">
+          <label for="subscription">Choose a Subscription</label>
+          <select
+            id="subscription"
+            [ngModel]="selectedSubscription"
+            name="subscription"
+            class="form-control">
+            <option
+              *ngFor="let subscription of subscriptions"
+              [value]="subscription">{{subscription}}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            ngModel
+            name="password"
+            required
+            class="form-control"
+            #password=ngModel>
+            <!--Validation message (#email reference is necesary to check the input values) -->
+            <span class="help-block" *ngIf="!password.valid && password.touched"> Please enter a valid password! </span>
+        </div>
+
+        <button class="btn btn-primary" type="submit"> Submit </button>
+        <p *ngIf="!signUpForm.valid && signUpForm.touched">The form is Invalid</p>
+      </form>
+
+    </div>
+  </div>
+</div>
